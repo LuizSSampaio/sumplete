@@ -1,7 +1,7 @@
 #pragma once
 
 typedef struct {
-  int *fields, *tips, *mask;
+  int *fields, *tips, *mask, *resp;
   int size;
 } Board;
 
@@ -11,9 +11,7 @@ void destroyBoard(Board *self);
 
 void setField(Board *self, int row, int col, int value);
 
-void setRowTip(Board *self, int row, int value);
-
-void setColumnTip(Board *self, int col, int value);
+void generateTips(Board *self);
 
 void markAddPos(Board *self, int row, int col);
 
