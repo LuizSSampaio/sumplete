@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "board.h"
 #include "game.h"
@@ -15,6 +17,7 @@ void repl();
 void helpCommand();
 Game newGameCommand();
 Game loadGameCommand();
+void tipCommand(Game *game);
 void solveGameCommand(Game *game);
 void saveGameCommand(Game *save);
 
@@ -72,13 +75,17 @@ void repl() {
     }
 
     if (strcmp(command, "dica") == 0) {
-      // TODO:
+      if (hasGame != 1) {
+        printf("Não existe um jogo ativo. Use o comando ajuda\n");
+        continue;
+      }
+      tipCommand(&save);
       continue;
     }
 
     if (strcmp(command, "resolver") == 0) {
       if (hasGame != 1) {
-        printf("Não existe um jogo ativo para resolver\n");
+        printf("Não existe um jogo ativo. Use o comando ajuda\n");
         continue;
       }
 
@@ -156,6 +163,19 @@ Game loadGameCommand() {
   scanf("%s", file);
   clearBuffer;
   return loadGame(file);
+}
+
+void tipCommand(Game *game) {
+  srand(time(NULL));
+  const int boardArea = game->board.size * game->board.size;
+  const int offset = rand() % boardArea;
+  for (int i = offset; i < boardArea + offset; i++) {
+    if (game->board.resp[i] == 1 && game->board.mask[i] != 1) {
+      game->board.mask[i] = 1;
+      return;
+    }
+  }
+  printf("Não existe mais dicas disponíveis\n");
 }
 
 void solveGameCommand(Game *game) {
