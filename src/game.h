@@ -21,3 +21,5 @@ void generateBoard(Game *self);
 void saveGame(Game *self, const char name[21]);
 
 Game loadGame(const char name[21]);
+
+int checkVictory(Game *self);

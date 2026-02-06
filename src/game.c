@@ -210,3 +210,12 @@ Game loadGame(const char name[21]) {
   fclose(save);
   return self;
 }
+
+int checkVictory(Game *self) {
+  const int boardArea = self->board.size * self->board.size;
+  for (int i = 0; i < boardArea; i++) {
+    if (self->board.mask[i] + 1 != self->board.resp[i])
+      return 0;
+  }
+  return 1;
+}
