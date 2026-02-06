@@ -14,6 +14,7 @@
 void repl();
 void helpCommand();
 Game newGameCommand();
+Game loadGameCommand();
 
 int main() {
   printf("Bem vindo ao Jogo SUMPLETE\n\n");
@@ -30,8 +31,9 @@ void repl() {
   Game save;
   while (1) {
     printf("> ");
-    if (fgets(command, 16, stdin) == NULL || strcmp(command, "sair\n") == 0)
+    if (scanf("%s", command) == -1 || strcmp(command, "sair\n") == 0)
       break;
+    clearBuffer;
 
     if (strcmp(command, "ajuda\n") == 0) {
       helpCommand();
@@ -40,6 +42,13 @@ void repl() {
 
     if (strcmp(command, "novo\n") == 0) {
       save = newGameCommand();
+      hasGame = 1;
+      printBoard(&save.board);
+      continue;
+    }
+
+    if (strcmp(command, "carregar\n") == 0) {
+      save = loadGameCommand();
       hasGame = 1;
       printBoard(&save.board);
       continue;
@@ -96,4 +105,12 @@ Game newGameCommand() {
   }
 
   return newGame(difficult, name);
+}
+
+Game loadGameCommand() {
+  char file[21];
+  printf("Digite o nome do jogo salvo: ");
+  scanf("%s", file);
+  clearBuffer;
+  return loadGame(file);
 }
