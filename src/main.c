@@ -53,6 +53,36 @@ void repl() {
       printBoard(&save.board);
       continue;
     }
+
+    if (strcmp(command, "ranking\n") == 0) {
+      // TODO:
+      continue;
+    }
+
+    if (strcmp(command, "adicionar\n") == 0) {
+      // TODO:
+      continue;
+    }
+
+    if (strcmp(command, "remover\n") == 0) {
+      // TODO:
+      continue;
+    }
+
+    if (strcmp(command, "dica\n") == 0) {
+      // TODO:
+      continue;
+    }
+
+    if (strcmp(command, "resolver\n") == 0) {
+      // TODO:
+      continue;
+    }
+
+    if (strcmp(command, "salvar\n") == 0) {
+      // TODO:
+      continue;
+    }
   }
 }
 
