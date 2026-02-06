@@ -6,7 +6,7 @@
 #include "board.h"
 #include "game.h"
 
-Game newGame(enum Difficult dificult, const char *player) {
+Game newGame(Difficult dificult, const char *player) {
   Game self;
 
   self.dificult = dificult;
