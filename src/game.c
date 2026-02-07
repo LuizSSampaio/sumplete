@@ -6,6 +6,13 @@
 #include "board.h"
 #include "game.h"
 
+#define clearBuffer                                                            \
+  do {                                                                         \
+    int c;                                                                     \
+    while ((c = getchar()) != '\n' && c != EOF) {                              \
+    }                                                                          \
+  } while (0)
+
 Game newGame(Difficult dificult, const char *player) {
   Game self;
 
@@ -13,7 +20,7 @@ Game newGame(Difficult dificult, const char *player) {
   self.board = newBoard(self.dificult);
   self.startTime = time(NULL);
 
-  strcat(self.player, player);
+  strcpy(self.player, player);
 
   generateBoard(&self);
 
@@ -42,7 +49,6 @@ int fileExists(const char *path) {
   return 0;
 }
 
-// BUG: Name writing with trash
 void saveGame(Game *self, const char name[21]) {
   char path[26] = "";
   strcat(path, name);
@@ -54,8 +60,12 @@ void saveGame(Game *self, const char name[21]) {
       printf("Já existe um jogo salvo com o nome %s, deseja continuar(s/n)? ",
              name);
 
-      if (scanf("%c ", &choice) == -1 || choice == 'n')
+      if (scanf("%c", &choice) == -1 || choice == 'n') {
+        clearBuffer;
         return;
+      }
+
+      clearBuffer;
     }
   }
 
@@ -111,7 +121,7 @@ void saveGame(Game *self, const char name[21]) {
   }
 
   // Player
-  fprintf(save, "%s\n%ld\n", self->player, time(NULL) - self->startTime);
+  fprintf(save, "%s\n%d\n", self->player, ((int)time(NULL)) - self->startTime);
 
   fclose(save);
 }
