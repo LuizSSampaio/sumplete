@@ -49,7 +49,10 @@ void repl() {
       }
 
       int row, col;
-      scanf("%d%d", &row, &col);
+      if (scanf("%d%d", &row, &col)) {
+        printf("Falha ao inserir linha e coluna.\n");
+        continue;
+      }
       if (!validatePosition(&save, row, col)) {
         printf("A posição %d %d é inválida\n", row, col);
         continue;
@@ -71,7 +74,10 @@ void repl() {
       }
 
       int row, col;
-      scanf("%d%d", &row, &col);
+      if (scanf("%d%d", &row, &col)) {
+        printf("Falha ao inserir linha e coluna.\n");
+        continue;
+      }
       if (!validatePosition(&save, row, col)) {
         printf("A posição %d %d é inválida\n", row, col);
         continue;
@@ -211,7 +217,10 @@ Game newGameCommand() {
 Game loadGameCommand() {
   char file[21];
   printf("Digite o nome do jogo salvo: ");
-  scanf("%s", file);
+  if (scanf("%s", file) == -1) {
+    printf("Falha ao inserir o nome do arquivo, carregando o jogo default\n");
+    strcpy(file, "default");
+  }
   clearBuffer;
   return loadGame(file);
 }
@@ -244,7 +253,11 @@ void solveGameCommand(Game *game) {
 void saveGameCommand(Game *save) {
   char file[21];
   printf("Digite o nome do jogo salvo: ");
-  scanf("%s", file);
+  if (scanf("%s", file) == -1) {
+    printf("Falha ao inserir o nome do arquivo\n");
+    clearBuffer;
+    return;
+  }
   clearBuffer;
   saveGame(save, file);
 }
