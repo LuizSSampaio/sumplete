@@ -43,8 +43,7 @@ int fileExists(const char *path) {
 }
 
 void saveGame(Game *self, const char name[21]) {
-  char path[32] = "";
-  strcat(path, "saves/");
+  char path[26] = "";
   strcat(path, name);
   strcat(path, ".sum");
 
@@ -61,7 +60,7 @@ void saveGame(Game *self, const char name[21]) {
 
   FILE *save = fopen(path, "w");
   if (save == NULL) {
-    printf("Falha ao criar o arquivo de salvamento!\n");
+    printf("Falha ao criar o arquivo de salvamento em %s\n", path);
     return;
   }
 
@@ -117,8 +116,7 @@ void saveGame(Game *self, const char name[21]) {
 
 // TODO: Remove error handling boilerplate
 Game loadGame(const char name[21]) {
-  char path[32] = "";
-  strcat(path, "saves/");
+  char path[26] = "";
   strcat(path, name);
   strcat(path, ".sum");
 
